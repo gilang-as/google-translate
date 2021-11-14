@@ -24,11 +24,12 @@ go get github.com/gilang-as/google-translate
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	gtranslate "github.com/gilang-as/google-translate"
 )
 
-func main() {
+func main()  {
 	value := gtranslate.Translate{
 		Text: "Halo Dunia",
 		//From: "id",
@@ -37,13 +38,13 @@ func main() {
 	translated, err := gtranslate.Translator(value)
 	if err != nil {
 		panic(err)
+	}else{
+		prettyJSON, err := json.MarshalIndent(translated, "", "\t")
+		if err != nil {
+			panic(err)
+		}
+		fmt.Println(string(prettyJSON))
 	}
-
-	dt, err := json.MarshalIndent(translated, "", "\t")
-	if err != nil {
-		log.Fatal("Failed to generate json", err)
-	}
-	fmt.Println(string(dt))
 }
 ```
 

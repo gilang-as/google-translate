@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	gtranslate "github.com/gilang-as/google-translate"
-	"log"
 )
 
 func main()  {
@@ -19,7 +18,7 @@ func main()  {
 	}else{
 		prettyJSON, err := json.MarshalIndent(translated, "", "\t")
 		if err != nil {
-			log.Fatal("Failed to generate json", err)
+			panic(err)
 		}
 		fmt.Println(string(prettyJSON))
 	}

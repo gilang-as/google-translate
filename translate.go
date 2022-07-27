@@ -11,20 +11,20 @@ type Translate struct {
 	To   string `json:"to"`
 }
 
-func Translator(value Translate) (*translated, error) {
-	var(
+func Translator(value Translate) (*Translated, error) {
+	var (
 		text string
 		from = "auto"
-		to string
+		to   string
 	)
 	if value.Text == "" {
 		return nil, fmt.Errorf("Text Value is required!")
-	}else{
+	} else {
 		text = value.Text
 	}
 	if value.To == "" {
 		return nil, fmt.Errorf("To Value is required!")
-	}else{
+	} else {
 		if _, err := language.Parse(value.To); err != nil {
 			return nil, fmt.Errorf("To Value is't valid!")
 		}

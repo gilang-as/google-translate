@@ -14,17 +14,17 @@ import (
 	"strings"
 )
 
-const(
+const (
 	HOST = "google.com"
 )
 
 type req struct {
 	FsId string `json:"f.sid"`
-	Bl string `json:"bl"`
+	Bl   string `json:"bl"`
 }
 
 func extract(key string, value string) string {
-	var regex, err = regexp.Compile(`"`+key+`":".*?"`)
+	var regex, err = regexp.Compile(`"` + key + `":".*?"`)
 
 	if err != nil {
 		fmt.Println(err.Error())
@@ -38,10 +38,10 @@ func extract(key string, value string) string {
 }
 
 func check() (*req, error) {
-	var(
-		err error
-		client = &http.Client{}
-		baseUrl ="https://translate."+HOST
+	var (
+		err     error
+		client  = &http.Client{}
+		baseUrl = "https://translate." + HOST
 	)
 	request, err := http.NewRequest("GET", baseUrl, nil)
 	if err != nil {
@@ -65,44 +65,44 @@ func check() (*req, error) {
 		return nil, fmt.Errorf("Error! Parsing Data Check.")
 	}
 	return &req{
-		FsId:        extract("FdrFJe", string(raw)),
-		Bl:          extract("cfb2h", string(raw)),
+		FsId: extract("FdrFJe", string(raw)),
+		Bl:   extract("cfb2h", string(raw)),
 	}, nil
 }
 
 type translateFromLanguage struct {
-	DidYouMean bool `json:"did_you_mean"`
-	Iso string `json:"iso"`
+	DidYouMean bool   `json:"did_you_mean"`
+	Iso        string `json:"iso"`
 }
 
 type translateFromText struct {
-	AutoCorrected bool `json:"auto_corrected"`
-	Value *string `json:"value"`
-	DidYouMean bool `json:"did_you_mean"`
+	AutoCorrected bool    `json:"auto_corrected"`
+	Value         *string `json:"value"`
+	DidYouMean    bool    `json:"did_you_mean"`
 }
 
 type translateFrom struct {
 	Language translateFromLanguage `json:"language"`
-	Text translateFromText `json:"text"`
+	Text     translateFromText     `json:"text"`
 }
 
-type translated struct {
-	Text string `json:"text"`
-	Pronunciation *string `json:"pronunciation"`
-	From translateFrom `json:"from"`
+type Translated struct {
+	Text          string        `json:"text"`
+	Pronunciation *string       `json:"pronunciation"`
+	From          translateFrom `json:"from"`
 }
 
-func translateV1(text string, from string, to string) (*translated, error) {
-	var(
-		rpcId = "MkEWBc"
-		err error
-		client = &http.Client{}
-		param = url.Values{}
-		body = url.Values{}
-		baseUrl ="https://translate."+HOST
+func translateV1(text string, from string, to string) (*Translated, error) {
+	var (
+		rpcId   = "MkEWBc"
+		err     error
+		client  = &http.Client{}
+		param   = url.Values{}
+		body    = url.Values{}
+		baseUrl = "https://translate." + HOST
 	)
 
-	u, err := url.Parse(baseUrl+"/_/TranslateWebserverUi/data/batchexecute")
+	u, err := url.Parse(baseUrl + "/_/TranslateWebserverUi/data/batchexecute")
 	if err != nil {
 		return nil, fmt.Errorf("Base URL not Valid : %s !", baseUrl)
 	}
@@ -112,15 +112,15 @@ func translateV1(text string, from string, to string) (*translated, error) {
 		return nil, err
 	}
 	query := map[string]string{
-		"rpcids": rpcId,
-		"f.sid":     checkData.FsId,
-		"bl":     checkData.Bl,
-		"hl":     "en-US",
-		"soc-app":   "1",
-		"soc-platform":   "1",
+		"rpcids":       rpcId,
+		"f.sid":        checkData.FsId,
+		"bl":           checkData.Bl,
+		"hl":           "en-US",
+		"soc-app":      "1",
+		"soc-platform": "1",
 		"soc-device":   "1",
-		"_reqid":   strconv.Itoa(int(math.Floor(100000 + (rand.Float64() * 9000)))),
-		"rt":   "c",
+		"_reqid":       strconv.Itoa(int(math.Floor(100000 + (rand.Float64() * 9000)))),
+		"rt":           "c",
 	}
 	for k, v := range query {
 		param.Add(k, v)
@@ -144,7 +144,7 @@ func translateV1(text string, from string, to string) (*translated, error) {
 	}
 	data := [1]interface{}{
 		[1]interface{}{
-			[4]interface{} {
+			[4]interface{}{
 				rpcId,
 				string(values),
 				nil,
@@ -183,7 +183,7 @@ func translateV1(text string, from string, to string) (*translated, error) {
 
 	raw, err := ioutil.ReadAll(response.Body)
 	if err != nil {
-		return nil, fmt.Errorf("Error! Get Body.")
+		return nil, fmt.Errorf("Error! GetCookies Body.")
 	}
 	res := strings.Split(string(raw)[6:], "\n")
 	var resp []interface{}
@@ -207,15 +207,15 @@ func translateV1(text string, from string, to string) (*translated, error) {
 	var AutoCorrectedValue *string
 	if resp2[0].([]interface{})[0] == nil {
 		if resp2[0].([]interface{})[1] != nil && resp2[0].([]interface{})[1].([]interface{})[0] != nil {
-			aaaa:=resp2[0].([]interface{})[1].([]interface{})[0].([]interface{})[0].([]interface{})[1].(string)
+			aaaa := resp2[0].([]interface{})[1].([]interface{})[0].([]interface{})[0].([]interface{})[1].(string)
 			r := regexp.MustCompile(`<.*?>`)
 			txt := r.ReplaceAllString(aaaa, "")
 			AutoCorrectedValue = &txt
 			DidYouMean = true
 		}
-	}else{
+	} else {
 		AutoCorrected = true
-		DidYouMeanLanguage=true
+		DidYouMeanLanguage = true
 		txt := resp2[0].([]interface{})[0].(string)
 		AutoCorrectedValue = &txt
 	}
@@ -223,21 +223,21 @@ func translateV1(text string, from string, to string) (*translated, error) {
 	pronunciationfrom := resp2[1].([]interface{})[0].([]interface{})[0].([]interface{})[1]
 	textIso := resp2[1].([]interface{})[3].(string)
 	var pronunciation *string
-	if pronunciationfrom != nil{
+	if pronunciationfrom != nil {
 		a := pronunciationfrom.(string)
 		pronunciation = &a
-	}else{
+	} else {
 		pronunciation = nil
 	}
-	return &translated{
+	return &Translated{
 		Text:          textTo,
 		Pronunciation: pronunciation,
-		From:          translateFrom{
+		From: translateFrom{
 			Language: translateFromLanguage{
 				DidYouMean: DidYouMeanLanguage,
 				Iso:        textIso,
 			},
-			Text:     translateFromText{
+			Text: translateFromText{
 				AutoCorrected: AutoCorrected,
 				Value:         AutoCorrectedValue,
 				DidYouMean:    DidYouMean,

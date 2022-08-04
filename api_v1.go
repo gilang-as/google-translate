@@ -21,6 +21,7 @@ const (
 type req struct {
 	FsId string `json:"f.sid"`
 	Bl   string `json:"bl"`
+	At   string `json:"at"`
 }
 
 func extract(key string, value string) string {
@@ -48,13 +49,14 @@ func check() (*req, error) {
 		return nil, fmt.Errorf("Error! Initial Check Request.")
 	}
 	request.Header.Set("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9")
-	request.Header.Set("accept-encoding", "gzip, deflate, br")
-	request.Header.Set("accept-language", "en-US,en;q=0.9")
-	request.Header.Set("sec-ch-ua", "\"Google Chrome\";v=\"95\", \"Chromium\";v=\"95\", \";Not A Brand\";v=\"99\"")
-	request.Header.Set("sec-ch-ua-mobile", "?1")
-	request.Header.Set("sec-ch-ua-platform", "\"Android\"")
+	//request.Header.Set("accept-encoding", "gzip, deflate, br")
+	request.Header.Set("accept-language", "en-US,en;q=0.9,id;q=0.8")
+	request.Header.Set("sec-ch-ua", ".Not/A)Brand\";v=\"99\", \"Google Chrome\";v=\"103\", \"Chromium\";v=\"103")
+	request.Header.Set("sec-ch-ua-mobile", "?0")
+	request.Header.Set("sec-ch-ua-platform", "\"Windows\"")
 	request.Header.Set("sec-fetch-dest", "document")
-	request.Header.Set("user-agent", "Mozilla/5.0 (Linux; Android 8.0.0; Pixel 2 XL Build/OPD1.170816.004) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Mobile Safari/537.36")
+	request.Header.Set("sec-fetch-user", "?1")
+	request.Header.Set("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36")
 	response, err := client.Do(request)
 	if err != nil {
 		return nil, fmt.Errorf("Error! Bad Network.")
@@ -64,32 +66,34 @@ func check() (*req, error) {
 	if err != nil {
 		return nil, fmt.Errorf("Error! Parsing Data Check.")
 	}
+
 	return &req{
 		FsId: extract("FdrFJe", string(raw)),
 		Bl:   extract("cfb2h", string(raw)),
+		At:   extract("SNlM0e", string(raw)),
 	}, nil
 }
 
-type translateFromLanguage struct {
+type TranslateFromLanguage struct {
 	DidYouMean bool   `json:"did_you_mean"`
 	Iso        string `json:"iso"`
 }
 
-type translateFromText struct {
+type TranslateFromText struct {
 	AutoCorrected bool    `json:"auto_corrected"`
 	Value         *string `json:"value"`
 	DidYouMean    bool    `json:"did_you_mean"`
 }
 
-type translateFrom struct {
-	Language translateFromLanguage `json:"language"`
-	Text     translateFromText     `json:"text"`
+type TranslateFrom struct {
+	Language TranslateFromLanguage `json:"language"`
+	Text     TranslateFromText     `json:"text"`
 }
 
 type Translated struct {
 	Text          string        `json:"text"`
 	Pronunciation *string       `json:"pronunciation"`
-	From          translateFrom `json:"from"`
+	From          TranslateFrom `json:"from"`
 }
 
 func translateV1(text string, from string, to string) (*Translated, error) {
@@ -232,12 +236,12 @@ func translateV1(text string, from string, to string) (*Translated, error) {
 	return &Translated{
 		Text:          textTo,
 		Pronunciation: pronunciation,
-		From: translateFrom{
-			Language: translateFromLanguage{
+		From: TranslateFrom{
+			Language: TranslateFromLanguage{
 				DidYouMean: DidYouMeanLanguage,
 				Iso:        textIso,
 			},
-			Text: translateFromText{
+			Text: TranslateFromText{
 				AutoCorrected: AutoCorrected,
 				Value:         AutoCorrectedValue,
 				DidYouMean:    DidYouMean,

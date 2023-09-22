@@ -223,7 +223,11 @@ func translateV1(text string, from string, to string) (*Translated, error) {
 		txt := resp2[0].([]interface{})[0].(string)
 		AutoCorrectedValue = &txt
 	}
-	textTo := resp2[1].([]interface{})[0].([]interface{})[0].([]interface{})[5].([]interface{})[0].([]interface{})[0].(string)
+	textToBuilder := strings.Builder{}
+	for _, line := range resp2[1].([]interface{})[0].([]interface{})[0].([]interface{})[5].([]interface{}) {
+		textToBuilder.WriteString(line.([]interface{})[0].(string))
+	}
+	textTo := textToBuilder.String()
 	pronunciationfrom := resp2[1].([]interface{})[0].([]interface{})[0].([]interface{})[1]
 	textIso := resp2[1].([]interface{})[3].(string)
 	var pronunciation *string

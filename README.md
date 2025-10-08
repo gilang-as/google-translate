@@ -20,25 +20,28 @@ go get gopkg.gilang.dev/google-translate
 ## API
 
 ### Example
+
 ```go
 package main
 
 import (
 	"encoding/json"
 	"fmt"
+
 	gt "gopkg.gilang.dev/google-translate"
+	"gopkg.gilang.dev/google-translate/params"
 )
 
-func main()  {
-	value := gt.Translate{
+func main() {
+	value := params.Translate{
 		Text: "Halo Dunia",
 		//From: "id",
 		To: "en",
 	}
-	translated, err := gt.Translator(value)
+	translated, err := gt.TranslateWithParam(value)
 	if err != nil {
 		panic(err)
-	}else{
+	} else {
 		prettyJSON, err := json.MarshalIndent(translated, "", "\t")
 		if err != nil {
 			panic(err)

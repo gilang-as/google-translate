@@ -226,8 +226,9 @@ func translateV1(text string, from string, to string) (*Translated, error) {
 	textToBuilder := strings.Builder{}
 	for _, line := range resp2[1].([]interface{})[0].([]interface{})[0].([]interface{})[5].([]interface{}) {
 		textToBuilder.WriteString(line.([]interface{})[0].(string))
+		textToBuilder.WriteString(" ")
 	}
-	textTo := textToBuilder.String()
+	textTo := strings.TrimSpace(textToBuilder.String())
 	pronunciationfrom := resp2[1].([]interface{})[0].([]interface{})[0].([]interface{})[1]
 	textIso := resp2[1].([]interface{})[3].(string)
 	var pronunciation *string

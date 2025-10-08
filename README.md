@@ -14,7 +14,7 @@ Parts of the code are ported from [gtranslate](https://github.com/bregydoc/gtran
 ## Install
 
 ```
-go get github.com/gilang-as/google-translate
+go get gopkg.gilang.dev/google-translate
 ```
 
 ## API
@@ -26,16 +26,16 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	gtranslate "github.com/gilang-as/google-translate"
+	gt "gopkg.gilang.dev/google-translate"
 )
 
 func main()  {
-	value := gtranslate.Translate{
+	value := gt.Translate{
 		Text: "Halo Dunia",
 		//From: "id",
 		To: "en",
 	}
-	translated, err := gtranslate.Translator(value)
+	translated, err := gt.Translator(value)
 	if err != nil {
 		panic(err)
 	}else{

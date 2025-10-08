@@ -1,5 +1,5 @@
 module github.com/gilang-as/google-translate
 
-go 1.17
+go 1.25
 
-require golang.org/x/text v0.3.7
+require golang.org/x/text v0.29.0

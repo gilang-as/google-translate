@@ -1,4 +1,4 @@
-module github.com/gilang-as/google-translate
+module gopkg.gilang.dev/google-translate
 
 go 1.25
 

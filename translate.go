@@ -1,9 +1,10 @@
-package google_translate
+package gt
 
 import (
 	"fmt"
-	"github.com/gilang-as/google-translate/params"
+
 	"golang.org/x/text/language"
+	"gopkg.gilang.dev/google-translate/params"
 )
 
 func TranslateWithParam(value params.Translate) (*Translated, error) {

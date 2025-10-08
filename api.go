@@ -1,4 +1,4 @@
-package google_translate
+package gt
 
 import (
 	"bytes"

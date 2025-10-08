@@ -1,8 +1,9 @@
-package google_translate
+package gt
 
 import (
-	"github.com/gilang-as/google-translate/params"
 	"testing"
+
+	"gopkg.gilang.dev/google-translate/params"
 )
 
 func TestTranslateWithParam(t *testing.T) {

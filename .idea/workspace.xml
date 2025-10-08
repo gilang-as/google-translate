@@ -5,14 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="92390f0b-fee3-49c9-a06f-2fb3d9729a47" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/copilot.data.migration.agent.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/copilot.data.migration.ask.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/copilot.data.migration.ask2agent.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/copilot.data.migration.edit.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/google-translate.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/api.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/api_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/go.mod" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/go.sum" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/translate.go" beforeDir="false" afterPath="$PROJECT_DIR$/translate.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/translate_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/translate_test.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,7 +91,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Test.TestTranslateWithParam in github.com/gilang-as/google-translate">
+  <component name="RunManager" selected="Go Test.go test gopkg.gilang.dev/google-translate">
     <configuration name="TestTranslate in github.com/gilang-as/google-translate" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="google-translate" />
       <working_directory value="$PROJECT_DIR$" />
@@ -125,8 +125,19 @@
       <pattern value="^\QTestTranslate_v1\E$" />
       <method v="2" />
     </configuration>
+    <configuration name="go test gopkg.gilang.dev/google-translate" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="google-translate" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="gopkg.gilang.dev/google-translate" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.go test gopkg.gilang.dev/google-translate" />
         <item itemvalue="Go Test.TestTranslateWithParam in github.com/gilang-as/google-translate" />
         <item itemvalue="Go Test.TestTranslate_v1 in github.com/gilang-as/google-translate" />
         <item itemvalue="Go Test.TestTranslate in github.com/gilang-as/google-translate" />

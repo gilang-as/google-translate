@@ -1,4 +1,4 @@
-package google_translate
+package gt
 
 import (
 	"encoding/json"
@@ -12,7 +12,7 @@ func TestTranslate_v1(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 		t.Fail()
-	}else{
+	} else {
 		prettyJSON, err := json.MarshalIndent(data, "", "\t")
 		if err != nil {
 			log.Fatal("Failed to generate json", err)
